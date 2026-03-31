@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ಅಬ್ದುಲ್ ಕಾದಿರ್ & ಮುಬೀನಾಬಾನು – ಮದುವೆ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Kannada:wght@300;400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --royal-burgundy:#2D0A1F;
+  --deep-burgundy:#4A0E2E;
+  --royal-purple:#6B2C91;
+  --light-purple:#8B3FB8;
+  --rich-gold:#D4AF37;
+  --bright-gold:#FFD700;
+  --ivory:#FFF8E7;
+  --cream:#F5E6D3;
+  --dark-bg:#1A0612;
+}
+
+body{
+  background:var(--royal-burgundy);
+  font-family:"Noto Serif Kannada","Cormorant Garamond",serif;
+  overflow:hidden;
+  width:100vw;
+  height:100vh;
+}
+
+#bg{
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 25% 25%, rgba(107,44,145,.25) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(139,63,184,.2) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212,175,55,.08) 0%, transparent 70%),
+    linear-gradient(135deg, #1A0612 0%, #2D0A1F 50%, #1A0612 100%);
+  z-index:0;
+}
+
+#bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(212,175,55,.02) 2px,
+      rgba(212,175,55,.02) 4px
+    );
+  opacity:.3;
+}
+
+#particles{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.particle{
+  position:absolute;
+  border-radius:50%;
+  background:radial-gradient(circle, var(--bright-gold), var(--rich-gold));
+  animation:royalTwinkle var(--dur) ease-in-out infinite;
+  box-shadow:0 0 8px rgba(255,215,0,.4);
+}
+@keyframes royalTwinkle{
+  0%,100%{opacity:0;transform:scale(.3) rotate(0deg);}
+  50%{opacity:var(--op);transform:scale(1.1) rotate(180deg);}
+}
+
+/* Royal frame */
+#frame{
+  position:fixed;
+  inset:16px;
+  pointer-events:none;
+  z-index:10;
+  border:2px solid rgba(212,175,55,.5);
+  box-shadow:
+    inset 0 0 30px rgba(212,175,55,.2),
+    0 0 40px rgba(139,63,184,.3);
+}
+#frame::after{
+  content:"";
+  position:absolute;
+  inset:6px;
+  border:1px solid rgba(255,215,0,.2);
+}
+
+/* Royal corner ornaments */
+.corner{
+  position:fixed;
+  width:55px;
+  height:55px;
+  pointer-events:none;
+  z-index:11;
+}
+.corner.tl{top:16px;left:16px;}
+.corner.tr{top:16px;right:16px;transform:scaleX(-1);}
+.corner.bl{bottom:16px;left:16px;transform:scaleY(-1);}
+.corner.br{bottom:16px;right:16px;transform:scale(-1);}
+
+/* Royal lanterns */
+#lanterns{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-between;
+  padding:0 90px;
+  pointer-events:none;
+  z-index:9;
+}
+.lantern{
+  animation:royalSwing 4.5s ease-in-out infinite;
+  transform-origin:top center;
+  filter:drop-shadow(0 0 15px rgba(212,175,55,.5));
+}
+.lantern:nth-child(2){animation-delay:.7s;}
+.lantern:nth-child(3){animation-delay:1.4s;}
+@keyframes royalSwing{
+  0%,100%{transform:rotate(-7deg);}
+  50%{transform:rotate(7deg);}
+}
+
+/* SCENES */
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Change padding from 75px 50px 55px to: */
+  padding: 40px 20px; 
+  z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .7s ease, visibility .7s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scene.active{visibility:visible;opacity:1;}
+.scene::-webkit-scrollbar{width:0;}
+
+.scene-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  max-width:680px;
+  width:100%;
+  margin:auto;
+  padding:6px 0 10px;
+}
+
+/* Royal stagger reveal */
+.item{
+  opacity:0;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  transform:translateY(20px);
+  transition:opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1);
+}
+.item.pop{
+  transform:scale(.85);
+  transition:opacity .75s ease, transform .75s cubic-bezier(.34,1.7,.64,1);
+}
+.scene.active .item{opacity:1;transform:none;}
+.scene.active .item:nth-child(1){transition-delay:.15s;}
+.scene.active .item:nth-child(2){transition-delay:.3s;}
+.scene.active .item:nth-child(3){transition-delay:.45s;}
+.scene.active .item:nth-child(4){transition-delay:.6s;}
+.scene.active .item:nth-child(5){transition-delay:.75s;}
+.scene.active .item:nth-child(6){transition-delay:.9s;}
+.scene.active .item:nth-child(7){transition-delay:1.05s;}
+.scene.active .item:nth-child(8){transition-delay:1.2s;}
+.scene.active .item:nth-child(9){transition-delay:1.35s;}
+
+/* ROYAL TYPOGRAPHY */
+.tag{
+  font-family:"Cinzel",serif;
+  font-size:clamp(12px,1.9vw,18px);
+  font-weight:600;
+  color:var(--cream);
+  letter-spacing:6px;
+  text-transform:uppercase;
+  opacity:.9;
+  text-align:center;
+  text-shadow:0 2px 8px rgba(0,0,0,.5);
+}
+
+.arabic{
+  font-family:"Amiri",serif;
+  font-size:clamp(19px,3.5vw,32px);
+  color:var(--bright-gold);
+  text-align:center;
+  line-height:1.9;
+  letter-spacing:2.5px;
+  text-shadow:0 0 20px rgba(255,215,0,.5);
+}
+
+.script-big {
+  font-family: "Playfair Display", serif;
+  /* Reduce the max size slightly and increase line-height */
+  font-size: clamp(32px, 8vw, 65px); 
+  font-weight: 700;
+  line-height: 1.5; /* Changed from 1.1 to 1.5 */
+  text-align: center;
+  background:linear-gradient(135deg,
+    var(--rich-gold) 0%,
+    var(--bright-gold) 25%,
+    var(--ivory) 50%,
+    var(--bright-gold) 75%,
+    var(--rich-gold) 100%);
+  background-size:250% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:luxuryShimmer 4s linear infinite;
+  filter:drop-shadow(0 0 25px rgba(255,215,0,.5))
+         drop-shadow(0 4px 15px rgba(0,0,0,.6));
+}
+
+@keyframes luxuryShimmer{
+  0%{background-position:0% center;}
+  100%{background-position:250% center;}
+}
+
+.couple-name{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(42px,10vw,90px);
+  font-weight:700;
+  background:linear-gradient(135deg,
+    var(--light-purple) 0%,
+    var(--bright-gold) 50%,
+    var(--light-purple) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:royalGlow 3s ease-in-out infinite;
+  filter:drop-shadow(0 0 30px rgba(139,63,184,.6));
+}
+
+@keyframes royalGlow{
+  0%,100%{filter:drop-shadow(0 0 30px rgba(139,63,184,.6));}
+  50%{filter:drop-shadow(0 0 45px rgba(255,215,0,.8));}
+}
+
+.script-med{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(28px,6.5vw,60px);
+  font-weight:600;
+  font-style:italic;
+  color:var(--ivory);
+  text-align:center;
+  line-height:1.25;
+  text-shadow:0 0 25px rgba(255,215,0,.6),
+              0 4px 12px rgba(0,0,0,.5);
+}
+
+.monogram{
+  font-family:"Playfair Display",cursive;
+  font-size:clamp(70px,17vw,145px);
+  font-weight:700;
+  line-height:1;
+  text-align:center;
+  background:linear-gradient(135deg,
+    var(--rich-gold),
+    var(--bright-gold),
+    var(--ivory),
+    var(--bright-gold),
+    var(--rich-gold));
+  background-size:250% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:luxuryShimmer 5s linear infinite;
+  filter:drop-shadow(0 0 40px rgba(255,215,0,.6))
+         drop-shadow(0 0 80px rgba(139,63,184,.4));
+}
+
+.body{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(17px,2.8vw,25px);
+  overflow-y: auto;
+  color:var(--cream);
+  text-align:center;
+  font-style:italic;
+  line-height:1.8;
+  text-shadow:0 2px 8px rgba(0,0,0,.4);
+}
+
+.strong{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(19px,3.3vw,30px);
+  color:var(--ivory);
+  text-align:center;
+  font-style:italic;
+  line-height:1.7;
+  font-weight:700;
+  text-shadow:0 0 15px rgba(212,175,55,.5);
+}
+
+.accent{
+  font-family:"Cinzel",serif;
+  font-size:clamp(13px,2.2vw,19px);
+  font-weight:600;
+  color:var(--rich-gold);
+  letter-spacing:5px;
+  text-align:center;
+  text-shadow:0 0 12px rgba(212,175,55,.6);
+}
+
+.big-time{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(34px,8vw,75px);
+  font-weight:600;
+  font-style:italic;
+  color:var(--bright-gold);
+  line-height:1.1;
+  text-align:center;
+  text-shadow:0 0 30px rgba(255,215,0,.7),
+              0 4px 15px rgba(0,0,0,.5);
+}
+
+/* Royal heart animation */
+.heart{
+  font-size:clamp(24px,4vw,38px);
+  color:var(--rich-gold);
+  animation:royalHeartbeat 1.8s ease-in-out infinite;
+  display:block;
+  text-align:center;
+  filter:drop-shadow(0 0 15px rgba(212,175,55,.7));
+}
+@keyframes royalHeartbeat{
+  0%,100%{transform:scale(1);}
+  20%{transform:scale(1.35);}
+  40%{transform:scale(1);}
+  60%{transform:scale(1.25);}
+  80%{transform:scale(1);}
+}
+
+/* Royal divider */
+.divider{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  width:min(78%,400px);
+  margin:4px auto;
+}
+.dl{
+  flex:1;
+  height:2px;
+  background:linear-gradient(90deg,
+    transparent,
+    rgba(212,175,55,.7),
+    transparent);
+  box-shadow:0 0 10px rgba(212,175,55,.3);
+}
+.dg{
+  width:9px;
+  height:9px;
+  background:linear-gradient(135deg, var(--bright-gold), var(--rich-gold));
+  transform:rotate(45deg);
+  flex-shrink:0;
+  box-shadow:0 0 15px rgba(255,215,0,.8);
+}
+
+/* Royal event card */
+.event-card{
+  background:linear-gradient(135deg,
+    rgba(107,44,145,.12),
+    rgba(74,14,46,.15),
+    rgba(107,44,145,.12));
+  border:2px solid rgba(212,175,55,.6);
+  padding:clamp(14px,2.8vw,28px) clamp(20px,4.5vw,50px);
+  text-align:center;
+  position:relative;
+  width:min(96%,520px);
+  margin:0 auto;
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.5),
+    inset 0 2px 12px rgba(212,175,55,.15);
+}
+
+.event-card::before{
+  content:"";
+  position:absolute;
+  inset:6px;
+  border:1px solid rgba(255,215,0,.25);
+  pointer-events:none;
+}
+
+/* QR styling */
+.qr-row{
+  display:flex;
+  gap:25px;
+  align-items:center;
+  justify-content:center;
+  margin-top:6px;
+}
+.qr-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+}
+.qr-box img{
+  width:clamp(90px,16vw,135px);
+  height:clamp(90px,16vw,135px);
+  object-fit:contain;
+  border:2px solid rgba(212,175,55,.5);
+  padding:8px;
+  background:linear-gradient(135deg,
+    rgba(74,14,46,.3),
+    rgba(107,44,145,.2));
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.qr-label{
+  font-family:"Cinzel",serif;
+  font-size:clamp(10px,1.6vw,14px);
+  font-weight:600;
+  color:var(--cream);
+  letter-spacing:2px;
+  text-align:center;
+}
+
+/* Float animation */
+.float{
+  animation:royalFloat 4s ease-in-out infinite;
+}
+@keyframes royalFloat{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-12px) scale(1.04);}
+}
+
+/* Navigation buttons */
+.nav-btn{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:clamp(16px,2.2vw,24px);
+  color:var(--rich-gold);
+  background:linear-gradient(135deg,
+    rgba(74,14,46,.75),
+    rgba(107,44,145,.6));
+  border:2px solid rgba(212,175,55,.5);
+  padding:clamp(7px,1.2vw,12px) clamp(10px,1.5vw,15px);
+  border-radius:50%;
+  cursor:pointer;
+  z-index:50;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  box-shadow:
+    0 6px 25px rgba(0,0,0,.5),
+    0 0 30px rgba(212,175,55,.3);
+}
+.nav-btn:hover{
+  transform:translateY(-50%) scale(1.15);
+  background:linear-gradient(135deg,
+    rgba(107,44,145,.85),
+    rgba(139,63,184,.75));
+  color:var(--bright-gold);
+  box-shadow:
+    0 8px 35px rgba(0,0,0,.6),
+    0 0 50px rgba(255,215,0,.6);
+}
+#prev{left:clamp(12px,2vw,30px);}
+#next{right:clamp(12px,2vw,30px);}
+
+/* Royal dots */
+#dots{
+  position:fixed;
+  bottom:clamp(20px,3vw,40px);
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:14px;
+  z-index:50;
+}
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:rgba(212,175,55,.35);
+  border:2px solid rgba(212,175,55,.6);
+  cursor:pointer;
+  transition:all .35s ease;
+  box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+.dot.on{
+  background:linear-gradient(135deg, var(--bright-gold), var(--rich-gold));
+  transform:scale(1.4);
+  box-shadow:
+    0 0 20px rgba(255,215,0,.8),
+    0 4px 15px rgba(0,0,0,.5);
+}
+.dot:hover{
+  transform:scale(1.25);
+  background:rgba(255,215,0,.6);
+}
+
+/* Entry curtain */
+#entry-curtain{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:linear-gradient(135deg,
+    #1A0612 0%,
+    #2D0A1F 50%,
+    #1A0612 100%);
+  transition:opacity 1.5s cubic-bezier(.4,0,.6,1);
+}
+#entry-curtain.lifted{
+  opacity:0;
+  pointer-events:none;
+}
+
+@media(max-width:768px){
+  .scene{padding:65px 35px 50px;}
+  .qr-row{flex-direction:column;gap:15px;}
+  #lanterns{padding:0 40px;}
+}
+</style>
+</head>
+<body>
+
+<div id="bg"></div>
+<div id="particles"></div>
+
+<!-- Royal frame -->
+<div id="frame"></div>
+
+<!-- Royal corner ornaments -->
+<div class="corner tl">
+  <svg viewBox="0 0 55 55" fill="none">
+    <path d="M2,2 L2,25 L10,25 L10,10 L25,10 L25,2 Z" 
+          fill="rgba(107,44,145,.2)" stroke="#D4AF37" stroke-width="1.5"/>
+    <path d="M5,5 L5,20 L8,20 L8,8 L20,8 L20,5 Z" 
+          fill="none" stroke="#FFD700" stroke-width="1"/>
+    <circle cx="15" cy="15" r="3" fill="#D4AF37" opacity="0.7"/>
+  </svg>
+</div>
+<div class="corner tr">
+  <svg viewBox="0 0 55 55" fill="none">
+    <path d="M2,2 L2,25 L10,25 L10,10 L25,10 L25,2 Z" 
+          fill="rgba(107,44,145,.2)" stroke="#D4AF37" stroke-width="1.5"/>
+    <path d="M5,5 L5,20 L8,20 L8,8 L20,8 L20,5 Z" 
+          fill="none" stroke="#FFD700" stroke-width="1"/>
+    <circle cx="15" cy="15" r="3" fill="#D4AF37" opacity="0.7"/>
+  </svg>
+</div>
+<div class="corner bl">
+  <svg viewBox="0 0 55 55" fill="none">
+    <path d="M2,2 L2,25 L10,25 L10,10 L25,10 L25,2 Z" 
+          fill="rgba(107,44,145,.2)" stroke="#D4AF37" stroke-width="1.5"/>
+    <path d="M5,5 L5,20 L8,20 L8,8 L20,8 L20,5 Z" 
+          fill="none" stroke="#FFD700" stroke-width="1"/>
+    <circle cx="15" cy="15" r="3" fill="#D4AF37" opacity="0.7"/>
+  </svg>
+</div>
+<div class="corner br">
+  <svg viewBox="0 0 55 55" fill="none">
+    <path d="M2,2 L2,25 L10,25 L10,10 L25,10 L25,2 Z" 
+          fill="rgba(107,44,145,.2)" stroke="#D4AF37" stroke-width="1.5"/>
+    <path d="M5,5 L5,20 L8,20 L8,8 L20,8 L20,5 Z" 
+          fill="none" stroke="#FFD700" stroke-width="1"/>
+    <circle cx="15" cy="15" r="3" fill="#D4AF37" opacity="0.7"/>
+  </svg>
+</div>
+
+<!-- Royal lanterns -->
+<div id="lanterns">
+  <svg class="lantern" width="40" height="80" viewBox="0 0 40 80">
+    <line x1="20" y1="0" x2="20" y2="15" stroke="#D4AF37" stroke-width="1.5"/>
+    <ellipse cx="20" cy="18" rx="12" ry="4" fill="rgba(107,44,145,.5)" stroke="#FFD700" stroke-width="1"/>
+    <rect x="10" y="18" width="20" height="30" rx="3" 
+          fill="rgba(139,63,184,.3)" stroke="#D4AF37" stroke-width="1.5"/>
+    <ellipse cx="20" cy="48" rx="12" ry="4" fill="rgba(107,44,145,.5)" stroke="#FFD700" stroke-width="1"/>
+    <circle cx="20" cy="33" r="8" fill="rgba(255,215,0,.6)"/>
+  </svg>
+  
+  <svg class="lantern" width="40" height="80" viewBox="0 0 40 80">
+    <line x1="20" y1="0" x2="20" y2="15" stroke="#D4AF37" stroke-width="1.5"/>
+    <ellipse cx="20" cy="18" rx="12" ry="4" fill="rgba(107,44,145,.5)" stroke="#FFD700" stroke-width="1"/>
+    <rect x="10" y="18" width="20" height="30" rx="3" 
+          fill="rgba(139,63,184,.3)" stroke="#D4AF37" stroke-width="1.5"/>
+    <ellipse cx="20" cy="48" rx="12" ry="4" fill="rgba(107,44,145,.5)" stroke="#FFD700" stroke-width="1"/>
+    <circle cx="20" cy="33" r="8" fill="rgba(255,215,0,.6)"/>
+  </svg>
+  
+  <svg class="lantern" width="40" height="80" viewBox="0 0 40 80">
+    <line x1="20" y1="0" x2="20" y2="15" stroke="#D4AF37" stroke-width="1.5"/>
+    <ellipse cx="20" cy="18" rx="12" ry="4" fill="rgba(107,44,145,.5)" stroke="#FFD700" stroke-width="1"/>
+    <rect x="10" y="18" width="20" height="30" rx="3" 
+          fill="rgba(139,63,184,.3)" stroke="#D4AF37" stroke-width="1.5"/>
+    <ellipse cx="20" cy="48" rx="12" ry="4" fill="rgba(107,44,145,.5)" stroke="#FFD700" stroke-width="1"/>
+    <circle cx="20" cy="33" r="8" fill="rgba(255,215,0,.6)"/>
+  </svg>
+</div>
+
+<!-- ═══ SCENE 1 — COUPLE NAMES ═══ -->
+<div class="scene active" id="s1">
+  <div class="scene-inner" style="gap:12px">
+    <div class="item pop float">
+      <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+        <circle cx="35" cy="35" r="32" stroke="#D4AF37" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+        <circle cx="35" cy="35" r="27" stroke="#FFD700" stroke-width="0.8" opacity="0.4"/>
+        <g fill="rgba(139,63,184,.2)" stroke="#D4AF37" stroke-width=".7">
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(0 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(60 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(120 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(180 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(240 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(300 35 35)"/>
+        </g>
+        <circle cx="35" cy="35" r="9" fill="rgba(107,44,145,.4)" stroke="#FFD700" stroke-width="1"/>
+        <circle cx="35" cy="35" r="4" fill="#D4AF37"/>
+      </svg>
+    </div>
+    <div class="item"><p class="arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p></div>
+    <div class="item"><p class="tag" style="font-family:'Noto Sans Kannada',serif;letter-spacing:3px">ಮದುವೆಯ ಸಂಭ್ರಮ</p></div>
+    <div class="item"><div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div></div>
+    <div class="item"><p class="script-big" style="font-family:'Noto Serif Kannada',serif;font-size:clamp(32px,8vw,72px)">ಮುಬೀನಾಬಾನು</p></div>
+    <div class="item"><span class="heart">♥</span></div>
+    <div class="item"><p class="script-big" style="font-family:'Noto Serif Kannada',serif;font-size:clamp(32px,8vw,72px)">ಅಬ್ದುಲ್ ಕಾದಿರ್</p></div>
+    <div class="item"><div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div></div>
+  </div>
+</div>
+
+<!-- ═══ SCENE 2 — DETAILS ═══ -->
+<div class="scene" id="s2">
+  <div class="scene-inner" style="gap:11px">
+    <div class="item pop float">
+      <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+        <circle cx="35" cy="35" r="32" stroke="#D4AF37" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+        <g fill="rgba(139,63,184,.2)" stroke="#D4AF37" stroke-width=".7">
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(0 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(60 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(120 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(180 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(240 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(300 35 35)"/>
+        </g>
+        <circle cx="35" cy="35" r="9" fill="rgba(107,44,145,.4)" stroke="#FFD700" stroke-width="1"/>
+        <circle cx="35" cy="35" r="4" fill="#D4AF37"/>
+      </svg>
+    </div>
+    <div class="item">
+        <p class="body" style="max-width:480px;font-family:'Noto Serif Kannada',serif;font-size:clamp(15px,2.4vw,22px)">
+            ಅಲ್ಲಾಹನ ಕೃಪೆಯಿಂದ ಮತ್ತು ನಮ್ಮ ಕುಟುಂಬಗಳ ಆಶೀರ್ವಾದದೊಂದಿಗೆ,<br>
+            ಎರಡು ಆತ್ಮಗಳ ಸುಂದರ ಮಿಲನಕ್ಕೆ ಸಾಕ್ಷಿಯಾಗಲು ನಿಮ್ಮನ್ನು ಪ್ರೀತಿಯಿಂದ ಆಮಂತ್ರಿಸುತ್ತೇವೆ.
+        </p>
+    </div>
+    <div class="item"><div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div></div>
+    <div class="item"><p class="monogram">M &amp; A</p></div>
+    <div class="item"><div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div></div>
+    <div class="item"><p class="strong" style="font-family:'Noto Serif Kannada',serif;font-size:clamp(16px,2.8vw,26px)">ಹೊಸ ಅಧ್ಯಾಯದ ಆರಂಭಕ್ಕೆ</p></div>
+  </div>
+</div>
+
+<!-- ═══ SCENE 3 — NIKAH EVENT ═══ -->
+<div class="scene" id="s3">
+  <div class="scene-inner" style="gap:10px">
+    <div class="item pop float">
+      <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+        <circle cx="35" cy="35" r="32" stroke="#D4AF37" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+        <g fill="rgba(139,63,184,.2)" stroke="#D4AF37" stroke-width=".7">
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(0 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(60 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(120 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(180 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(240 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(300 35 35)"/>
+        </g>
+        <circle cx="35" cy="35" r="9" fill="rgba(107,44,145,.4)" stroke="#FFD700" stroke-width="1"/>
+        <circle cx="35" cy="35" r="4" fill="#D4AF37"/>
+      </svg>
+    </div>
+    <div class="item"><p class="tag" style="font-family:'Noto Sans Kannada',serif;letter-spacing:3px">ನಿಕಾಹ್ ಸಮಾರಂಭದ ಆಮಂತ್ರಣ</p></div>
+    <div class="item"><div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div></div>
+    <div class="item">
+      <div class="event-card">
+        <p class="accent" style="font-family:'Noto Sans Kannada',serif;letter-spacing:3px;margin-bottom:8px">ಭಾನುವಾರ</p>
+        <p class="big-time" style="font-family:'Noto Serif Kannada',serif;font-size:clamp(26px,6vw,58px)">೧೦ ಮೇ ೨೦೨೬</p>
+        <p class="accent" style="font-family:'Noto Sans Kannada',serif;letter-spacing:3px;margin-top:8px">ಬೆಳಿಗ್ಗೆ ೧೧:೪೫</p>
+        <div class="divider" style="margin:12px auto"><div class="dl"></div></div>
+        <p class="body" style="font-family:'Noto Serif Kannada',serif;font-size:clamp(14px,2.2vw,19px);line-height:1.8">
+          ಅಪ್ಪಾಜಿ ಗಾರ್ಡನ್<br>ಬಸ್ ಡಿಪೋ ಎದುರು, ಹುಬ್ಬಳ್ಳಿ–ಬಿಜಾಪೂರ ರಸ್ತೆ<br>
+          ನವಲಗುಂದ
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCENE 4 — QR ═══ -->
+<div class="scene" id="s4">
+  <div class="scene-inner" style="gap:10px">
+    <div class="item pop float">
+      <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+        <circle cx="35" cy="35" r="32" stroke="#D4AF37" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+        <g fill="rgba(139,63,184,.2)" stroke="#D4AF37" stroke-width=".7">
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(0 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(60 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(120 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(180 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(240 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(300 35 35)"/>
+        </g>
+        <circle cx="35" cy="35" r="9" fill="rgba(107,44,145,.4)" stroke="#FFD700" stroke-width="1"/>
+        <circle cx="35" cy="35" r="4" fill="#D4AF37"/>
+      </svg>
+    </div>
+    <div class="item"><p class="tag" style="font-family:'Noto Sans Kannada',serif;letter-spacing:3px">ಸ್ಥಳದ ನಕ್ಷೆಗಾಗಿ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ</p></div>
+    <div class="item"><div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div></div>
+    <div class="item">
+      <div class="qr-row">
+        <div class="qr-box">
+          <img src="data:image/jpeg;base64,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AABf4AIAAAABf4AAAAAAAAAIAAAAAAAABf4AIAAAAAABf4AAAIAAAABf4AAAIAAAAAAAAAAAABf4AAAAAIAABf4AIAAAABf4AAAAAAAAAIAAAAAABf4AAAAAAAAAIAABf4AAAAAIAAAAAABf4AIAAAAAAAAAABf4AIAAAAAAAABf4AAAIAABf4AAAAAIAAAAAABf4AAAAAAAAAIAABf4AAAAAIAAAAAABf4AIAAAAAAAAAABf4AIAAAAAAAABf4AAAIAABf4AAAAAIAABf4AIAAAABf4AAAIAABf4AIAAAABf4AAAAAAAAAIAABf4AIAABf4AAAIAAAABf4AIAAAABf4AAAAAAAAAAAAAIAABf4AIAAAABf4AAAIAABf4AIAAAABf4AAAAAAAAAIAABf4AIAABf4AAAIAAAABf4AIAAAABf4AAAAAAAAAAAAAIAABf4AAAIAABf4AAAAAIAAAABf4AIAAAAAABf4AAAIAAAABf4AAAIAAAABf4AIAABf4AIAAAABf4AIAABf4AAAAAAAIAABf4AAAIAABf4AAAAAIAAAABf4AIAAAAAABf4AAAIAAAABf4AAAIAAAABf4AIAABf4AIAAAABf4AIAABf4AAAAAAAIAABf4AIAAAAAAAAAABf4AIAAAABf4AIAAAABf4AIAABf4AAAAAAAAAAAIAABf4AAAAAIAAAAAAAABf4AAAAAIAABf4AIAAAAAAAAAABf4AIAAAABf4AIAAAABf4AIAABf4AAAAAAAAAAAIAABf4AAAAAIAAAAAAAABf4AAAAAIAAAAAABf4AIAAAABf4AIAABf4AAAAAIAAAABf4AIAAAAAABf4AAAIAAAAAAAAAAAABf4AAAIAAAABf4AAAAAIAAAAAABf4AIAAAABf4AIAABf4AAAAAIAAAABf4AIAAAAAABf4AAAIAAAAAAAAAAAABf4AAAIAAAABf4AAAAAAAAAIAAAAAAAAAAAABf4AIAAAAAABf4AAAAAIAABf4AAAIAABf4AAAAAIAAAAAABf4AAAAAAAAAAAAAAAAAIAAAAAAAAAAAABf4AIAAAAAABf4AAAAAIAABf4AAAIAABf4AAAAAIAAAAAABf4AAAAAAAAAAAAAIAAAAAAAABf4AIAABf4AAAIAAAAAABf4AIAABf4AIAAAAAABf4AIAAAAAAAAAAAABf4AIAABf4AAAAAAAAAAAIAAAAAAAABf4AIAABf4AAAIAAAAAABf4AIAABf4AIAAAAAABf4AIAAAAAAAAAAAABf4AIAABf4AAAAAAAAAAAIAABf4AIAAAAAAAAAAAABf4AIAABf4AAAAAAAIAAAAAAAABf4AIAABf4AAAAAAAAAIAAAAAAAABf4AAAAAIAABf4AIAAAAAAAAAAAABf4AIAABf4AAAAAAAIAAAAAAAABf4AIAABf4AAAAAAAAAIAAAAAAAABf4AAAAAIAABf4AAAIAAAAAABf4AIAAAAAABf4AAAAAIAAAABf4AIAAAABf4AIAABf4AIAAAAAAAABf4AAAIAAAABf4AAAAAIAABf4AAAIAAAAAABf4AIAAAAAABf4AAAAAIAAAABf4AIAAAABf4AIAABf4AIAAAAAAAABf4AAAIAAAABf4AAAAAIAABf4AIAAAABf4AIAAAAAABf4AIAABf4AAAAAAAAAIAABf4AAAIAABf4AIAAAAAAAAAAAAAAAABf4AAAAAAAIAABf4AIAAAABf4AIAAAAAABf4AIAABf4AAAAAAAAAIAABf4AAAIAABf4AIAAAAAAAAAAAAAAAABf4AAAAAAAAAAAAAAAAAAAAAAAIAABf4AIAABf4AAAAAAAIAABf4AAAIAABf4AIAABf4AAAAAIAABf4AAAIAABf4AAAAAAAAAAAAAAAAAAAAAAAIAABf4AIAABf4AAAAAAAIAABf4AAAIAABf4AIAABf4AAAAAIAABf4AAAIAABf4AAAAAAAIAAAAAAAAAAAAAABf4AAAIAABf4AIAAAAAABf4AAAAAAAAAAAIAABf4AIAABf4AIAAAAAABf4AAAAAAAAAIAAOzhpDNaQzWkM1pDNaQzWkM1pDNaQzWkM1pDNd8AF/gAAAgAAF/gAgAAAAAAF/gAAAAAAAAAAAgAAF/gAgAAF/gAgAAAAAAF/gAAAAAAAAAgADSzdMun9dHLocuhy6HLocuhy6HLocuhz+d8kKZunmAF/gAgAAAAAAAAAAF/gAgAAF/gAgAAF/gAAAAAgAAF/gAAAAAgAAF/gAgAAAAAAF/gAAAAAgADTzNMurrnoH8j+rz49A8+PQPPj0Dz49A8+PQPP/wCo1gOeuSFczTzAC/wAQAAAAAAAAAAC/wAAEAAAv8AEAAAv8AAAAAEAAAv8AAAAAEAAAv8AABAAAAAAAL/AAAAABAAGnmaZdXXPQ8/6Dz5EAAAAAH0/5h9PKwA565IVzNPMAL/ABAAAAAL/AAAQAAC/wAQAAAAAAC/wAAAQAAC/wAQAAAAAAAAAAC/wAQAAAAAAC/wAAAAAQABp5mmXV1z0PP8AoPPkQAAAAAfT/mH08rADnrkhXM08wAv8AEAAAAAv8AEAAAv8AEAAAAAAAv8AAAABAAAL/ABAAAAAAAAAAAL/AAAQAAAAAAC/wAAAAAQABp5mmXV1z0PP+g8+RAAAAAB9P+YfTysAOeuSFczTzAC/wAQAAAAAAC/wAAAAAAAAAAAAAAAQAAAAAAC/wAQAAC/wAAAAAAAAAAAAAAAQABp5mmXV1z0PP+g8+RAAAAAB9P8AmH08rADnrkhXM08wAv8AABAAAAAAAL/AAAAAAAAAAAAAAABAAAAAAAL/AAAQAAC/wAAAAAAAAAAAAAAAQABp5mmXV1z0PP8AoPPkQAAAAAfT/mH08rADnrkhXM08wAv8AEAAAAAAAv8AABAAAAAL/ABAAAAAAAAAAAL/AAAAAAAQAAC/wAAAQAAAAC/wAAAAAAAQABp5mmXV1z0PP+gySFn08fMH08fMH08fMH08fMH08fMPp72x96A565IVzNPMAL/ABAAAAAAAL/ABAAAAAL/ABAAAAAAAAAAAL/AAAAABAAAL/AAABAAAAAL/AAAAAAAAAQABp5mmXV1z0AAAAAAAAOeuSFczTzAC/wAAAAEAAAAAv8AAAAAEAAAv8AEAAAv8AAAAAAAAAAAAAAAEAAAAAv8AABAAAL/AAAAABAAGnmaRdfXH6dOR05HTkdOR05HTkdOR05HXL8IWzNLNAL/AAABAAAAAL/AAAAABAAAL/ABAAAL/AAAAAAAAAAAAAAAAAQAAAAC/wAQAAC/wAAAAAQAB3wNJmjSZo0maNJmjSZo0maNJmjSZo0maNJmjvgAL/ABAAAAAAAAAL/AAABAAAAAAAAAL/AAAAAAABAAAL/ABAAAAAAAL/AAAAAAAAABAAAAAAAAAAAAAAAL/AAAQAAAAAAAAC/wAAAQAAAAAAAAC/wAAAAAAAAEAAAv8AEAAAAAAAv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//8QAKRAAAAQFAwMFAQEAAAAAAAAAAAEFFQQQETE1BkBgFjA2AgMSITSg0P/aAAgBAQABBQL+Iki+Rt8WG+LDfFhviw3xYb4sN8WG+LDfFhviw3xYb4sN8WG+LDfFhviw3xYb4sN8WG+LBl8T4ERfI2+LDfFhviw3xYb4sN8WG+LDfFhviw3xYb4sN8WG+LDfFhviw3xYb4sN8WG+LDfFgy+J7JP/AHkX1QhQhQhQhQhQhQhQhQhQhQhQhQhQhQhQhQhQgZfSh+/gSf8AvIvqhChChChChChChChChChChChChChChChChChAy+lD9+yTsgVtkdlHIcCTsgVtkdlHIbJOyBW2R2UchwJOyBW2R2Uchsk7IFaXr9fp9v0viaHxND4mh8TQ+JofE0PiaHxND4mh8TQ+Jo9hTg4r3JnZRyHAk7IFaXr9fp9v0viaHxND4mh8TQ+JofE0PiaHxND4mh8TQ+Jo9hTg4r3JnZRyGyTsgVpLmH7egvIZnZRyHAk7IFaS5h+3oLyGZ2Uchsk7IFaS5h+3oLyGZ2UchwJOyBWkuYft6C8hmdlHIbJOyBWkuYft6C8hmdlHIcCTsgVpLmH7egvIZnZRyGyTsgVpLmH7egvIZnZRyHAk7IFaS5h+3oLyGZ2Uchsk7IFaS5h+3oLyGZ2UchwJOyBWkuYft6C8hmdlHIbJOyBWkuYft6C8hmdlHIcCTsgVpLmH7egvIZnZRyGyTsgVpLmH7egvIZnZRyHAk7IFaS5h+3oLyGZ2Uchsk7IFaS5h+3oLyGZ2UchwJOyBWkuYft6C8hmdlHIbJOyBWkuYft6C8hmdlHIcCTsgVpLmH7egvIZnZRyGyTsgVpLmH7egvIZnZRyHAk7IFaS5h+3oLyGZ2Uchsk7IFaS5h+3oLyGZ2UchwJOyBWkuYft6C8hmdlHIbJOyBWkp+x64pP6CWR0EsjoJZHQSyOglkdBLI6CWR0EsjoJZHQSyOglkaV0qopKtM7KOQ4EnZArSU/Y9cUn9BLI6CWR0EsjoJZHQSyOglkdBLI6CWR0EsjoJZHQSyNK6VUUlWmdlHIbJOyBW2R2UchwJOyBW2R2Uchsk7IFbZHZRyHAk7IFbZHZRyGyTsgVtkdlHIcCTsgVtkdlHIbJP/eR/VSFSFSFSFSFSFSFSFSFSFSFSFSFSFSFSFSFSBn9KH7+BJ/7yP6qQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQM/pQ/fsiP4m4RYcIsOEWHCLDhFhwiw4RYcIsOEWHCLDhFhwiw4RYcIsOEWHCLDhFhwiw4RYcIsGfyPgRH8TcIsOEWHCLDhFhwiw4RYcIsOEWHCLDhFhwiw4RYcIsOEWHCLDhFhwiw4RYcIsOEWDP5H/giRF8jb4sN8WG+LDfFhviw3xYb4sN8WG+LDfFhviw3xYb4sN8WG+LDfFhviw3xYb4sN8WDL4nypP/eRfVCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCBl9KH7+VJ2QK2yOyjkOVJ2QK2yOyjkOVJ2QK0vX6/T7fpfE0PiaHxND4mh8TQ+JofE0PiaHxND4mh8TR7CnBxXuTOyjkOVJ2QK0lzD9vQXkMzso5DlSdkCtJcw/b0F5DM7KOQ5UnZArSXMP29BeQzOyjkOVJ2QK0lzD9vQXkMzso5DlSdkCtJcw/b0F5DM7KOQ5UnZArSXMP29BeQzOyjkOVJ2QK0lzD9vQXkMzso5DlSdkCtJcw/b0F5DM7KOQ5UnZArSXMP29BeQzOyjkOVJ2QK0lzD9vQXkMzso5DlSdkCtJcw/b0F5DM7KOQ5UnZArSU/Y9cUn9BLI6CWR0EsjoJZHQSyOglkdBLI6CWR0EsjoJZHQSyNK6VUUlWmdlHIcqTsgVtkdlHIcqTsgVtkdlHIcqTsgVtkdlHIcqT/3kf1UhUhUhUhUhUhUhUhUhUhUhUhUhUhUhUhUhUgZ/Sh+/lRH8TcIsOEWHCLDhFhwiw4RYcIsOEWHCLDhFhwiw4RYcIsOEWHCLDhFhwiw4RYcIsOEWDP5H/HD/AP/EABQRAQAAAAAAAAAAAAAAAAAAAMD/2gAIAQMBAT8BAAf/xAAUEQEAAAAAAAAAAAAAAAAAAADA/9oACAECAQE/AQAH/8QAKhAAAAUEAQUAAgIDAQAAAAAAAAECA3MENJOxIDAzQGCSESETMTJRoND/2gAIAQEABj8C/wCIn8F+zFq/jMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Mx+D/R+h/gv2YtX8Zi1fxGLV/EYtX8Ri1fxGLV/EYtX8Ri1fxGLV/EYtX8Ri1fxGLV/EYtX8Ri1fxGLV/EYtX8Ri1fxGLV/EYtX8Ri1fxmPwf6Pw6WVO/FqpVb9DpZU78WqlVvw6WZG/Fqpl79DpZkb8WqmXvw6WZG/Fqpl79DpZkb8WqmXvw6WZG+BqWZJSX9mYvWPsXrH2L1j7F6x9i9Y+xesfYvWPsXrH2L1j7F6x9i9Y+x/HT1LTq/9JVxqpl79DpZkb4GpZklJf2Zi9Y+xesfYvWPsXrH2L1j7F6x9i9Y+xesfYvWPsXrH2L1j7H8dPUtOr/0lXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FbCrqNxr1xqpl79DpZkb4VsKuo3GvXGqmXvw6WZG+FSy1/m42aSHbaykO21lIdtrKQ7bWUh22spDttZSHbaykO21lIdtrKQ7bWUh22spBNTWJQTZIUX6X+eNVMvfodLMjfCpZa/wA3GzSQ7bWUh22spDttZSHbaykO21lIdtrKQ7bWUh22spDttZSHbaykO21lIJqaxKCbJCi/S/zxqpl78OlmRvxaqZe/Q6WZG/Fqpl78OlmRvxaqZe/Q6WZG/Fqpl78OlmRvxaqZe/Q6WZG/Fqpl78OllTvxaqVW/Q6WVO/FqpVb8P8AJfoxdP5DF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/kMfk/2fof5L9GLp/IYun8pi6fymLp/KYun8pi6fymLp/KYun8pi6fymLp/KYun8pi6fymLp/KYun8pi6fymLp/KYun8pi6fymLp/KYun8hj8n+z/8ET/Bfsxav4zFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/iMWr+Ixav4jFq/jMfg/0ftdLKnfi1Uqt+10syN+LVTL37XSzI34tVMvftdLMjfA1LMkpL+zMXrH2L1j7F6x9i9Y+xesfYvWPsXrH2L1j7F6x9i9Y+xesfY/jp6lp1f8ApKuNVMvftdLMjfCthV1G41641Uy9+10syN8K2FXUbjXrjVTL37XSzI3wrYVdRuNeuNVMvftdLMjfCthV1G41641Uy9+10syN8K2FXUbjXrjVTL37XSzI3wrYVdRuNeuNVMvftdLMjfCthV1G41641Uy9+10syN8K2FXUbjXrjVTL37XSzI3wrYVdRuNeuNVMvftdLMjfCthV1G41641Uy9+10syN8K2FXUbjXrjVTL37XSzI3wqWWv8ANxs0kO21lIdtrKQ7bWUh22spDttZSHbaykO21lIdtrKQ7bWUh22spDttZSCamsSgmyQov0v88aqZe/a6WZG/Fqpl79rpZkb8WqmXv2ulmRvxaqZe/a6WVO/FqpVb9r/JfoxdP5DF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/lMXT+UxdP5TF0/kMfk/2f/HF/8QAJhAAAQIFBQEBAQEBAQAAAAAAAAHwMVFhccEQEUBg8UEhIDCg0P/aAAgBAQABPyH/AIiVEEVUgifRtYHzgfOB84HzgfOB84HzgfOB84HzgfOB84HzgfOB84HzgfOB84G1gUURVCKL86GogiqkET6NrA+cD5wPnA+cD5wPnA+cD5wPnA+cD5wPnA+cD5wPnA+cD5wPnA2sCiiKoRRfnDd5RDZ+fCghQQoIUEKCFBCghQQoIUEKCFBCghQQoIUEKCFBBDd+fB3n6G7yiGz8+FBCghQQoIUEKCFBCghQQoIUEKCFBCghQQoIUEKCCG78+DvPw2SUgW4cSwyT9DZJSBbhxLDJPw2SUgW4cSwyT9DZJSBbhxLDJPw2SUgW1Tfnuo/EQ8KeFPCnhTwp4U8KeFPCnhTwpvxlN9oq7fxEsMk/Q2SUgW1Tfnuo/EQ8KeFPCnhTwp4U8KeFPCnhTwpvxlN9oq7fxEsMk/DZJSBbVklwKIlhkn6GySkC2rJLgURLDJPw2SUgW1ZJcCiJYZJ+hskpAtqyS4FESwyT8NklIFtWSXAoiWGSfobJKQLaskuBREsMk/DZJSBbVklwKIlhkn6GySkC2rJLgURLDJPw2SUgW1ZJcCiJYZJ+hskpAtqyS4FESwyT8NklIFtWSXAoiWGSfobJKQLaskuBREsMk/DZJSBbVklwKIlhkn6GySkC2rJLgURLDJPw2SUgW1ZJcCiJYZJ+hskpAtqyS4FESwyT8NklIFtWSXAoiWGSfobJKQLaskuBREsMk/DZJSBbVklwKIlhkn6GySkC2rJLgURLDJPw2SUgW1ZJcCiJYZJ+hskpAtqyS4FESwyT8NklIFtds9d4V2TdU/0ooooooooooo/Nz5ok/iJYZJ+hskpAtrtnrvCuybqn+lFFFFFFFFFFH5ufNEn8RLDJPw2SUgW4cSwyT9DZJSBbhxLDJPw2SUgW4cSwyT9DZJSBbhxLDJPw2SUgW4cSwyT9DZJSBbhxLDJPw3eUQ2fvwqIVEKiFRCohUQqIVEKiFRCohUQqIVEKiFRCohUQQ3fvwd5+hu8ohs/fhUQqIVEKiFRCohUQqIVEKiFRCohUQqIVEKiFRCoghu/fg7z8NRBVUIKnwbWR85HzkfOR85HzkfOR85HzkfOR85HzkfOR85HzkfOR85HzkfORtZFFFVUiq/ehqIKqhBU+DayPnI+cj5yPnI+cj5yPnI+cj5yPnI+cj5yPnI+cj5yPnI+cj5yNrIooqqkVX7/4ImogiqkET6NrA+cD5wPnA+cD5wPnA+cD5wPnA+cD5wPnA+cD5wPnA+cD5wPnA2sCiiKoRRfna3eUQ2fnwoIUEKCFBCghQQoIUEKCFBCghQQoIUEKCFBCghQQQ3fnwd5+1skpAtw4lhkn7WySkC3DiWGSftbJKQLapvz3UfiIeFPCnhTwp4U8KeFPCnhTwp4U34ym+0Vdv4iWGSftbJKQLaskuBREsMk/a2SUgW1ZJcCiJYZJ+1skpAtqyS4FESwyT9rZJSBbVklwKIlhkn7WySkC2rJLgURLDJP2tklIFtWSXAoiWGSftbJKQLaskuBREsMk/a2SUgW1ZJcCiJYZJ+1skpAtqyS4FESwyT9rZJSBbVklwKIlhkn7WySkC2rJLgURLDJP2tklIFtds9d4V2TdU/0ooooooooooo/Nz5ok/iJYZJ+1skpAtw4lhkn7WySkC3DiWGSftbJKQLcOJYZJ+1u8ohs/fhUQqIVEKiFRCohUQqIVEKiFRCohUQqIVEKiFRCoghu/fg7z9rUQVVCCp8G1kfOR85HzkfOR85HzkfOR85HzkfOR85HzkfOR85HzkfOR85HzkbWRRRVVIqv3/ji//9oADAMBAAIAAwAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwwwwwwwwwwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwwwwwwwwwwAAAAAAAABDjDDDDDDDDSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABDjDDDDDDDDSAAAAAAAAACgQwwwwwgBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgQwwwwwgBQAAAAAAAAAChQAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChQAAAAAABQAAAAAAAAAChQAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChQAAAAAABQAAAAAAAAAChQAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChQAAAAAABQAAAAAAAAAChQAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChQAAAAAABQAAAAAAAAAChQAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChQAAAAAABQAAAAAAAAAChAAAAAAQBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChAAAAAAQBQAAAAAAAAACgAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAABQAAAAAAAAASwwwwwwwwxwgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASwwwwwwwwxwgAAAAAAAADDDDDDDDDDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDDDDDDDDDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwwwwwwwwwwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABDjDDDDDDDDSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgQwwwwwgBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChQAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChQAAAAAABQAA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" alt="Nikah venue QR code"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCENE 5 — FROM FAMILY ═══ -->
+<div class="scene" id="s5">
+  <div class="scene-inner" style="gap:11px">
+    <div class="item pop float">
+      <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+        <circle cx="35" cy="35" r="32" stroke="#D4AF37" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+        <g fill="rgba(139,63,184,.2)" stroke="#D4AF37" stroke-width=".7">
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(0 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(60 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(120 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(180 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(240 35 35)"/>
+          <ellipse cx="35" cy="13" rx="7" ry="11" transform="rotate(300 35 35)"/>
+        </g>
+        <circle cx="35" cy="35" r="9" fill="rgba(107,44,145,.4)" stroke="#FFD700" stroke-width="1"/>
+        <circle cx="35" cy="35" r="4" fill="#D4AF37"/>
+      </svg>
+    </div>
+    <div class="item"><p class="tag" style="font-family:'Noto Sans Kannada',serif;letter-spacing:3px">ಶುಭಾಶಯಗಳೊಂದಿಗೆ</p></div>
+    <div class="item"><div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div></div>
+    <div class="item"><p class="script-med" style="font-family:'Noto Serif Kannada',serif;font-size:clamp(20px,4.5vw,40px)">ಶ್ರೀ ಮತ್ತು ಶ್ರೀಮತಿ ಮಸೂತಿ</p></div>
+  </div>
+</div>
+
+<button class="nav-btn" id="prev">&#8592;</button>
+<button class="nav-btn" id="next">&#8594;</button>
+<div id="dots"></div>
+
+<!-- Entry curtain -->
+<div id="entry-curtain"></div>
+
+<script>
+/* Royal particles */
+const pw=document.getElementById("particles");
+for(let i=0;i<65;i++){
+  const p=document.createElement("div");
+  p.className="particle";
+  const sz=(Math.random()*3+1).toFixed(1);
+  p.style.cssText=`width:${sz}px;height:${sz}px;left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;--dur:${(Math.random()*5+2.5).toFixed(1)}s;--op:${(Math.random()*.6+.15).toFixed(2)};animation-delay:${(Math.random()*7).toFixed(1)}s`;
+  pw.appendChild(p);
+}
+
+const scenes=Array.from(document.querySelectorAll(".scene"));
+const N=scenes.length;
+let cur=0,timer=null,userNavigated=false;
+const dotsEl=document.getElementById("dots");
+scenes.forEach((_,i)=>{
+  const d=document.createElement("div");
+  d.className="dot"+(i===0?" on":"");
+  d.onclick=()=>goManual(i);
+  dotsEl.appendChild(d);
+});
+
+function go(idx){
+  if(timer)clearTimeout(timer);
+  const prev=scenes[cur];
+  cur=((idx%N)+N)%N;
+  prev.classList.remove("active");
+  setTimeout(()=>{
+    scenes[cur].classList.add("active");
+    dotsEl.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("on",i===cur));
+  },450);
+  if(!userNavigated) timer=setTimeout(()=>go(cur+1),8500);
+}
+
+function goManual(idx){
+  userNavigated=true;
+  if(timer)clearTimeout(timer);
+  go(idx);
+}
+
+scenes[0].classList.add("active");
+timer=setTimeout(()=>go(1),8500);
+document.getElementById("next").onclick=()=>goManual(cur+1);
+document.getElementById("prev").onclick=()=>goManual(cur-1);
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight")goManual(cur+1);
+  if(e.key==="ArrowLeft")goManual(cur-1);
+});
+
+let tx=0,ty=0;
+document.addEventListener("touchstart",e=>{
+  tx=e.touches[0].clientX;
+  ty=e.touches[0].clientY;
+},{passive:true});
+
+document.addEventListener("touchend",e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  const dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))
+    goManual(cur+(dx<0?1:-1));
+});
+
+function recolorQR(img){
+  const c=document.createElement("canvas");
+  c.width=img.naturalWidth;
+  c.height=img.naturalHeight;
+  const ctx=c.getContext("2d");
+  ctx.drawImage(img,0,0);
+  const d=ctx.getImageData(0,0,c.width,c.height);
+  for(let i=0;i<d.data.length;i+=4){
+    const lum=d.data[i]*0.299+d.data[i+1]*0.587+d.data[i+2]*0.114;
+    if(lum<128){
+      d.data[i]=212;
+      d.data[i+1]=175;
+      d.data[i+2]=55;
+      d.data[i+3]=255;
+    }else{
+      d.data[i+3]=0;
+    }
+  }
+  ctx.putImageData(d,0,0);
+  img.src=c.toDataURL("image/png");
+}
+
+document.querySelectorAll(".qr-box img").forEach(img=>{
+  if(img.complete&&img.naturalWidth)recolorQR(img);
+  else img.addEventListener("load",()=>recolorQR(img),{once:true});
+});
+
+/* Entry curtain lift */
+(function(){
+  var ec = document.getElementById('entry-curtain');
+  if(!ec) return;
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      setTimeout(function(){ ec.classList.add('lifted'); }, 70);
+    });
+  });
+  ec.addEventListener('transitionend', function(){ ec.remove(); }, {once:true});
+})();
+</script>
+</body>
+</html>

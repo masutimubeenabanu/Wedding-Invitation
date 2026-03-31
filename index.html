@@ -459,7 +459,94 @@ body{
   transition:opacity 1.3s cubic-bezier(.4,0,.6,1);
 }
 #curtain.drop{ opacity:1;pointer-events:all; }
+
+/* ── LANGUAGE MODAL ── */
+#lang-modal{
+  position:fixed;inset:0;z-index:400;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(26,6,18,.85);
+  backdrop-filter:blur(8px);
+  opacity:0;pointer-events:none;
+  transition:opacity .5s ease;
+}
+#lang-modal.show{ opacity:1;pointer-events:all; }
+
+.lang-box{
+  background:linear-gradient(135deg,#2D0A1F 0%,#1A0612 50%,#2D0A1F 100%);
+  border:2px solid rgba(212,175,55,.6);
+  box-shadow:0 0 60px rgba(212,175,55,.3),
+             0 0 120px rgba(139,63,184,.2),
+             inset 0 2px 20px rgba(212,175,55,.1);
+  padding:clamp(28px,5vw,50px) clamp(30px,6vw,60px);
+  text-align:center;
+  max-width:420px;width:90%;
+  position:relative;
+}
+.lang-box::before{
+  content:"";position:absolute;inset:8px;
+  border:1px solid rgba(255,215,0,.2);pointer-events:none;
+}
+.lang-title{
+  font-family:"Cinzel",serif;
+  font-size:clamp(13px,2.5vw,18px);
+  font-weight:600;
+  color:var(--cream);
+  letter-spacing:5px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  opacity:.9;
+}
+.lang-subtitle{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(13px,2vw,16px);
+  color:var(--rich-gold);
+  font-style:italic;
+  letter-spacing:2px;
+  margin-bottom:28px;
+  opacity:.85;
+}
+.lang-divider{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  margin-bottom:28px;
+}
+.lang-divider .dl{width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(212,175,55,.6),transparent);}
+.lang-divider .dg{width:7px;height:7px;background:linear-gradient(135deg,var(--bright-gold),var(--rich-gold));
+  transform:rotate(45deg);box-shadow:0 0 10px rgba(255,215,0,.6);}
+
+.lang-btns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+
+.lang-btn{
+  font-family:"Cinzel",serif;
+  font-size:clamp(13px,2.5vw,16px);
+  font-weight:600;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--royal-burgundy);
+  background:linear-gradient(135deg,var(--rich-gold),var(--bright-gold),var(--rich-gold));
+  border:2px solid var(--bright-gold);
+  padding:14px 36px;
+  border-radius:50px;
+  cursor:pointer;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 6px 25px rgba(212,175,55,.45),
+             inset 0 1px 6px rgba(255,255,255,.3);
+  position:relative;overflow:hidden;
+  min-width:130px;
+}
+.lang-btn:hover{
+  transform:translateY(-4px) scale(1.06);
+  box-shadow:0 10px 40px rgba(212,175,55,.7),
+             0 0 80px rgba(255,215,0,.3);
+}
+.lang-btn:active{transform:translateY(-1px) scale(1.02);}
+.lang-btn .kn-label{
+  font-family:"Noto Sans Kannada","Cormorant Garamond",serif;
+  display:block;font-size:clamp(15px,2.8vw,19px);
+  letter-spacing:1px;margin-top:2px;
+}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -582,6 +669,21 @@ body{
   </div>
 </div>
 
+<!-- LANGUAGE SELECTION MODAL -->
+<div id="lang-modal">
+  <div class="lang-box">
+    <p class="lang-title">Choose Your Language</p>
+    <p class="lang-subtitle">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</p>
+    <div class="lang-divider">
+      <div class="dl"></div><div class="dg"></div><div class="dl"></div>
+    </div>
+    <div class="lang-btns">
+      <button class="lang-btn" id="langEn"><span>English</span></button>
+      <button class="lang-btn" id="langKn"><span class="kn-label">ಕನ್ನಡ</span></button>
+    </div>
+  </div>
+</div>
+
 <!-- LUXURY CURTAIN -->
 <div id="curtain"></div>
 
@@ -629,6 +731,31 @@ function spawnRoyalPetals(){
   }
 }
 
+const langModal = document.getElementById('lang-modal');
+const langEn    = document.getElementById('langEn');
+const langKn    = document.getElementById('langKn');
+
+let selectedLang = 'en';
+
+function navigateToInvitation(){
+  curtain.classList.add('drop');
+  setTimeout(()=>{
+    window.location.href = selectedLang === 'kn' ? 'invitation_kn.html' : 'invitation.html';
+  }, 1400);
+}
+
+langEn.addEventListener('click', ()=>{
+  selectedLang = 'en';
+  langModal.classList.remove('show');
+  navigateToInvitation();
+});
+
+langKn.addEventListener('click', ()=>{
+  selectedLang = 'kn';
+  langModal.classList.remove('show');
+  navigateToInvitation();
+});
+
 enterBtn.addEventListener('click', ()=>{
   // Play music
   audio.play().catch(()=>{});
@@ -648,9 +775,8 @@ enterBtn.addEventListener('click', ()=>{
     spawnRoyalPetals();
   }, 850);
 
-  // Luxury curtain drop and navigation
-  setTimeout(()=> curtain.classList.add('drop'), 3200);
-  setTimeout(()=>{ window.location.href = 'invitation.html'; }, 4600);
+  // Show language modal after envelope animation
+  setTimeout(()=> langModal.classList.add('show'), 2800);
 });
 </script>
 </body>
