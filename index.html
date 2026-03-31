@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're Invited - Mubeenabanu & Abdul Kadir</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --royal-burgundy:#2D0A1F;
+  --deep-burgundy:#4A0E2E;
+  --royal-purple:#6B2C91;
+  --light-purple:#8B3FB8;
+  --rich-gold:#D4AF37;
+  --bright-gold:#FFD700;
+  --ivory:#FFF8E7;
+  --cream:#F5E6D3;
+  --dark-bg:#1A0612;
+}
+
+body{
+  background:var(--royal-burgundy);
+  font-family:"Cormorant Garamond",serif;
+  overflow:hidden;width:100vw;height:100vh;
+}
+
+#bg{
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 25% 25%, rgba(107,44,145,.25) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(139,63,184,.2) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212,175,55,.08) 0%, transparent 70%),
+    linear-gradient(135deg, #1A0612 0%, #2D0A1F 50%, #1A0612 100%);
+  z-index:0;
+}
+
+/* Luxury gradient overlay */
+#bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(212,175,55,.02) 2px,
+      rgba(212,175,55,.02) 4px
+    );
+  opacity:.3;
+}
+
+#particles{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.particle{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle, var(--bright-gold), var(--rich-gold));
+  animation:royalTwinkle var(--dur) ease-in-out infinite;
+  box-shadow:0 0 8px rgba(255,215,0,.4);
+}
+@keyframes royalTwinkle{
+  0%,100%{opacity:0;transform:scale(.3) rotate(0deg);}
+  50%{opacity:var(--op);transform:scale(1.1) rotate(180deg);}
+}
+
+/* ── WELCOME ── */
+#welcome{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:55px;padding:30px;width:100%;text-align:center;
+  z-index:5;
+  transition:opacity 1.2s ease;
+}
+#welcome.fading{ opacity:0; }
+
+.ornament{ 
+  animation:royalFloat 4s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px rgba(212,175,55,.6));
+}
+@keyframes royalFloat{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-15px) scale(1.05);}
+}
+
+.welcome-title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(42px,10vw,90px);
+  font-weight:700;
+  background:linear-gradient(135deg,
+    var(--rich-gold) 0%,
+    var(--bright-gold) 25%,
+    var(--ivory) 50%,
+    var(--bright-gold) 75%,
+    var(--rich-gold) 100%);
+  background-size:300% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:luxuryShimmer 4s linear infinite;
+  filter:drop-shadow(0 0 30px rgba(255,215,0,.5))
+         drop-shadow(0 4px 12px rgba(0,0,0,.6));
+  text-align:center;line-height:1.15;
+  letter-spacing:3px;
+}
+@keyframes luxuryShimmer{
+  0%{background-position:0% center;}
+  100%{background-position:300% center;}
+}
+
+.welcome-subtitle{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(20px,4vw,32px);
+  color:var(--cream);
+  font-style:italic;
+  text-align:center;
+  line-height:1.7;
+  max-width:650px;
+  margin:0 auto;
+  text-shadow:0 2px 8px rgba(0,0,0,.5);
+  letter-spacing:1px;
+}
+
+.couple-names{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(28px,6vw,52px);
+  font-weight:600;
+  background:linear-gradient(135deg,
+    var(--light-purple) 0%,
+    var(--bright-gold) 50%,
+    var(--light-purple) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:royalGlow 3s ease-in-out infinite;
+  text-align:center;
+  letter-spacing:4px;
+  margin-top:15px;
+  filter:drop-shadow(0 0 20px rgba(139,63,184,.6));
+}
+@keyframes royalGlow{
+  0%,100%{filter:drop-shadow(0 0 20px rgba(139,63,184,.6));}
+  50%{filter:drop-shadow(0 0 35px rgba(255,215,0,.8));}
+}
+
+/* ── ROYAL BUTTON ── */
+#enterBtn{
+  font-family:"Cinzel",serif;
+  font-size:clamp(16px,3vw,22px);
+  font-weight:600;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--royal-burgundy);
+  background:linear-gradient(135deg,
+    var(--rich-gold) 0%,
+    var(--bright-gold) 50%,
+    var(--rich-gold) 100%);
+  border:2px solid var(--bright-gold);
+  padding:22px 70px;
+  border-radius:60px;
+  cursor:pointer;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  box-shadow:
+    0 8px 30px rgba(212,175,55,.5),
+    0 0 60px rgba(255,215,0,.3),
+    inset 0 2px 8px rgba(255,255,255,.3);
+  position:relative;
+  overflow:hidden;
+  margin-top:25px;
+}
+
+#enterBtn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,
+    var(--bright-gold),
+    var(--ivory),
+    var(--bright-gold));
+  opacity:0;
+  transition:opacity .4s ease;
+}
+
+#enterBtn::after{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius:68px;
+  background:linear-gradient(45deg,
+    transparent,
+    rgba(255,215,0,.4),
+    transparent);
+  opacity:0;
+  transition:opacity .4s ease;
+  animation:royalRotate 3s linear infinite;
+}
+
+@keyframes royalRotate{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+#enterBtn:hover{
+  transform:translateY(-6px) scale(1.06);
+  box-shadow:
+    0 12px 50px rgba(212,175,55,.8),
+    0 0 100px rgba(255,215,0,.5),
+    0 0 150px rgba(139,63,184,.3),
+    inset 0 2px 12px rgba(255,255,255,.5);
+  border-color:var(--ivory);
+}
+
+#enterBtn:hover::before{ opacity:1; }
+#enterBtn:hover::after{ opacity:1; }
+
+#enterBtn span{ 
+  position:relative;
+  z-index:1;
+  text-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+
+#enterBtn:active{ 
+  transform:translateY(-2px) scale(1.02);
+}
+
+.divider{
+  display:flex;align-items:center;justify-content:center;gap:16px;margin:20px 0;
+}
+.dl,.dg{height:1.5px;}
+.dl{ 
+  width:90px;
+  background:linear-gradient(90deg,
+    transparent,
+    rgba(212,175,55,.6),
+    transparent);
+}
+.dg{ 
+  width:120px;
+  background:linear-gradient(90deg,
+    transparent,
+    var(--bright-gold) 0%,
+    var(--ivory) 50%,
+    var(--bright-gold) 100%,
+    transparent);
+  box-shadow:0 0 12px rgba(255,215,0,.5);
+}
+
+@media(max-width:680px){
+  #welcome{gap:40px;}
+  .welcome-subtitle{font-size:clamp(18px,4.5vw,26px);}
+  #enterBtn{padding:20px 55px;}
+}
+
+/* ════════════════════════════════════
+   ROYAL ENVELOPE OVERLAY
+════════════════════════════════════ */
+#env-overlay{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 50%,
+      rgba(26,6,18,.98) 0%,
+      rgba(45,10,31,.99) 100%);
+  opacity:0;pointer-events:none;
+  transition:opacity .8s cubic-bezier(.4,0,.2,1);
+}
+#env-overlay.show{ opacity:1;pointer-events:all; }
+
+/* Royal ambient glow */
+#glow-ring{
+  position:absolute;
+  width:600px;height:600px;
+  border-radius:50%;
+  box-shadow:none;
+  transition:box-shadow 1.6s cubic-bezier(.2,.8,.2,1) .7s;
+}
+#glow-ring.bloom{
+  box-shadow:
+    0 0 100px 50px rgba(139,63,184,.2),
+    0 0 200px 100px rgba(212,175,55,.15),
+    0 0 350px 175px rgba(107,44,145,.08);
+}
+
+/* Royal petals */
+.petal{
+  position:absolute;left:50%;top:40%;
+  width:12px;height:12px;
+  border-radius:50% 0 50% 0;
+  opacity:0;pointer-events:none;
+  animation:royalPetalBurst var(--pd) ease-out var(--dl) forwards;
+}
+@keyframes royalPetalBurst{
+  0%{opacity:0;transform:translate(0,0) rotate(0deg) scale(0);}
+  20%{opacity:1;}
+  100%{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(.3);}
+}
+
+/* ── ROYAL ENVELOPE ── */
+.env-scene{
+  position:relative;
+  width:clamp(280px,56vw,450px);
+  height:clamp(190px,38vw,305px);
+  filter:drop-shadow(0 18px 70px rgba(212,175,55,.6))
+         drop-shadow(0 0 100px rgba(139,63,184,.4));
+}
+
+/* Rising letter card */
+.env-letter{
+  position:absolute;left:7%;right:7%;bottom:3%;height:84%;
+  border-radius:6px;
+  background:linear-gradient(155deg,
+    #3D1828 0%,
+    #4A0E2E 50%,
+    #2D0A1F 100%);
+  border:2px solid rgba(212,175,55,.5);
+  z-index:1;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+  transform:translateY(0);
+  transition:transform 1.4s cubic-bezier(.16,1,.3,1) .7s;
+  overflow:hidden;
+  box-shadow:
+    inset 0 2px 12px rgba(212,175,55,.2),
+    0 8px 30px rgba(0,0,0,.6);
+}
+
+.env-letter::before{
+  content:"";position:absolute;inset:8px;
+  border:1px solid rgba(255,215,0,.2);
+  border-radius:4px;
+}
+
+.letter-line{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(11px,2.4vw,17px);
+  font-weight:600;
+  letter-spacing:4px;
+  background:linear-gradient(135deg,
+    var(--rich-gold),
+    var(--bright-gold),
+    var(--rich-gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-align:center;
+  white-space:nowrap;
+  opacity:0;
+  transition:opacity .8s ease 1s;
+}
+
+.letter-amp{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(20px,5vw,42px);
+  font-style:italic;
+  color:var(--ivory);
+  text-shadow:0 0 15px rgba(255,215,0,.6);
+  opacity:0;
+  transition:opacity .8s ease 1.2s;
+}
+
+/* Royal envelope body */
+.env-body{
+  position:absolute;inset:0;
+  border-radius:8px 8px 12px 12px;
+  background:linear-gradient(160deg,
+    #4A0E2E 0%,
+    #6B2C91 55%,
+    #3D1828 100%);
+  border:2px solid rgba(212,175,55,.6);
+  z-index:2;
+  overflow:hidden;
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.5),
+    inset 0 2px 8px rgba(212,175,55,.2);
+}
+
+.env-body::before{
+  content:"";position:absolute;bottom:0;left:0;right:0;height:56%;
+  background:linear-gradient(168deg,
+    #5A1E3E 0%,
+    #3D1828 100%);
+  clip-path:polygon(0 100%,50% 2%,100% 100%);
+}
+
+/* Royal envelope flap */
+.env-flap{
+  position:absolute;top:0;left:0;right:0;height:45%;
+  transform-origin:top center;
+  transform-style:preserve-3d;
+  transition:transform 1.3s cubic-bezier(.16,1,.3,1);
+  z-index:3;
+}
+
+.env-flap-inner{
+  position:absolute;inset:0;
+  background:linear-gradient(165deg,
+    #6B2C91 0%,
+    #8B3FB8 50%,
+    #5A1E3E 100%);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  border-left:2px solid rgba(212,175,55,.6);
+  border-right:2px solid rgba(212,175,55,.6);
+  box-shadow:
+    inset 0 -8px 20px rgba(0,0,0,.3),
+    0 8px 25px rgba(0,0,0,.4);
+  display:flex;align-items:center;justify-content:center;
+  padding-top:15%;
+}
+
+/* Royal wax seal */
+.seal{
+  width:clamp(70px,14vw,105px);
+  height:clamp(70px,14vw,105px);
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.6));
+  transition:transform .6s cubic-bezier(.4,0,.2,1),
+             opacity .6s ease;
+}
+
+/* Envelope opening states */
+.env-scene.open .env-flap{
+  transform:rotateX(-165deg);
+}
+
+.env-scene.open .env-letter{
+  transform:translateY(-135%);
+}
+
+.env-scene.open .env-letter .letter-line,
+.env-scene.open .env-letter .letter-amp{
+  opacity:1;
+}
+
+@keyframes royalSealCrack{
+  0%{transform:scale(1) rotate(0deg);opacity:1;}
+  50%{transform:scale(1.15) rotate(8deg);opacity:.8;}
+  100%{transform:scale(.5) rotate(25deg);opacity:0;}
+}
+
+.env-scene.open .seal{
+  animation:royalSealCrack 1s cubic-bezier(.4,0,.2,1) .15s forwards;
+}
+
+/* Decorative corner accents on envelope */
+.env-body::after{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border:1px solid rgba(255,215,0,.15);
+  border-radius:4px;
+  pointer-events:none;
+}
+
+/* ════════════════════════════════════
+   LUXURY CURTAIN TRANSITION
+════════════════════════════════════ */
+#curtain{
+  position:fixed;inset:0;z-index:300;
+  background:linear-gradient(135deg,
+    #1A0612 0%,
+    #2D0A1F 50%,
+    #1A0612 100%);
+  opacity:0;pointer-events:none;
+  transition:opacity 1.3s cubic-bezier(.4,0,.6,1);
+}
+#curtain.drop{ opacity:1;pointer-events:all; }
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="wedding-music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="bg"></div>
+<div id="particles"></div>
+
+<div id="welcome">
+  <div class="ornament">
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+      <circle cx="45" cy="45" r="40" stroke="#D4AF37" stroke-width="1.2" stroke-dasharray="5 5" opacity="0.6"/>
+      <circle cx="45" cy="45" r="35" stroke="#FFD700" stroke-width="0.8" opacity="0.4"/>
+      <g fill="rgba(139,63,184,.18)" stroke="#D4AF37" stroke-width=".8">
+        <ellipse cx="45" cy="16" rx="9" ry="14" transform="rotate(0 45 45)"/>
+        <ellipse cx="45" cy="16" rx="9" ry="14" transform="rotate(60 45 45)"/>
+        <ellipse cx="45" cy="16" rx="9" ry="14" transform="rotate(120 45 45)"/>
+        <ellipse cx="45" cy="16" rx="9" ry="14" transform="rotate(180 45 45)"/>
+        <ellipse cx="45" cy="16" rx="9" ry="14" transform="rotate(240 45 45)"/>
+        <ellipse cx="45" cy="16" rx="9" ry="14" transform="rotate(300 45 45)"/>
+      </g>
+      <circle cx="45" cy="45" r="12" fill="rgba(107,44,145,.35)" stroke="#FFD700" stroke-width="1.2"/>
+      <circle cx="45" cy="45" r="6" fill="#D4AF37"/>
+      <!-- Crown element -->
+      <path d="M45,37 L48,40 L45,39 L42,40 Z" fill="#FFD700" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <h1 class="welcome-title">You're Invited</h1>
+
+  <div>
+    <p class="welcome-subtitle">To the Wedding Celebration of</p>
+    <div class="divider">
+      <div class="dl"></div><div class="dg"></div><div class="dl"></div>
+    </div>
+    <p class="couple-names">Mubeenabanu  &amp; Abdul Kadir</p>
+  </div>
+
+  <button id="enterBtn"><span>Open Invitation</span></button>
+</div>
+
+<!-- ROYAL ENVELOPE OVERLAY -->
+<div id="env-overlay">
+  <div id="glow-ring"></div>
+  <div class="env-scene" id="envScene" style="perspective:1100px;transform-style:preserve-3d;">
+    <div class="env-letter">
+      <p class="letter-line">Mubeenabanu</p>
+      <p class="letter-amp">&amp;</p>
+      <p class="letter-line">Abdul Kadir</p>
+    </div>
+    <div class="env-body"></div>
+    <div class="env-flap" style="perspective:1100px;">
+      <div class="env-flap-inner">
+        <svg class="seal" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="royalWax" cx="38%" cy="33%" r="65%">
+              <stop offset="0%"   stop-color="#8B0000"/>
+              <stop offset="50%"  stop-color="#B22222"/>
+              <stop offset="100%" stop-color="#450000"/>
+            </radialGradient>
+            <radialGradient id="royalGloss" cx="34%" cy="28%" r="45%">
+              <stop offset="0%"   stop-color="rgba(255,100,100,0.4)"/>
+              <stop offset="100%" stop-color="rgba(255,50,50,0)"/>
+            </radialGradient>
+            <filter id="royalTexture" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="5" seed="3" result="noise"/>
+              <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+              <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blended"/>
+              <feComposite in="blended" in2="SourceGraphic" operator="in"/>
+            </filter>
+          </defs>
+
+          <!-- Ornate wax seal shape -->
+          <polygon filter="url(#royalTexture)" fill="url(#royalWax)"
+            points="45,2 50.5,8.2 58,4.5 61.5,11.8 69.5,10.2 70.8,18.2 78.8,19.5 77.2,27.5
+                    84.5,31 80.8,38.5 87,45 80.8,51.5 84.5,59 77.2,62.5 78.8,70.5 70.8,71.8
+                    69.5,79.8 61.5,78.2 58,85.5 50.5,81.8 45,87 39.5,81.8 32,85.5 28.5,78.2
+                    20.5,79.8 19.2,71.8 11.2,70.5 12.8,62.5 5.5,59 9.2,51.5 3,45 9.2,38.5
+                    5.5,31 12.8,27.5 11.2,19.5 19.2,18.2 20.5,10.2 28.5,11.8 32,4.5 39.5,8.2"/>
+
+          <!-- Gloss overlay -->
+          <polygon fill="url(#royalGloss)"
+            points="45,2 50.5,8.2 58,4.5 61.5,11.8 69.5,10.2 70.8,18.2 78.8,19.5 77.2,27.5
+                    84.5,31 80.8,38.5 87,45 80.8,51.5 84.5,59 77.2,62.5 78.8,70.5 70.8,71.8
+                    69.5,79.8 61.5,78.2 58,85.5 50.5,81.8 45,87 39.5,81.8 32,85.5 28.5,78.2
+                    20.5,79.8 19.2,71.8 11.2,70.5 12.8,62.5 5.5,59 9.2,51.5 3,45 9.2,38.5
+                    5.5,31 12.8,27.5 11.2,19.5 19.2,18.2 20.5,10.2 28.5,11.8 32,4.5 39.5,8.2"/>
+
+          <!-- Royal gold rings -->
+          <circle cx="45" cy="45" r="34" fill="none" stroke="rgba(212,175,55,0.7)" stroke-width="1.2"/>
+          <circle cx="45" cy="45" r="28" fill="none" stroke="rgba(255,215,0,0.4)" stroke-width="0.9"/>
+
+          <!-- Crown symbol -->
+          <path d="M35,35 L38,40 L42,37 L45,42 L48,37 L52,40 L55,35 L53,45 L37,45 Z" 
+                fill="rgba(212,175,55,0.85)" stroke="#FFD700" stroke-width="0.8"/>
+
+          <!-- Decorative separator lines -->
+          <line x1="30" y1="48" x2="60" y2="48" stroke="rgba(212,175,55,0.5)" stroke-width="0.8"/>
+          <line x1="30" y1="55" x2="60" y2="55" stroke="rgba(212,175,55,0.5)" stroke-width="0.8"/>
+
+          <!-- Royal monogram A -->
+          <text x="45" y="46" text-anchor="middle"
+                font-family="Playfair Display,serif" font-size="15" font-weight="700"
+                fill="rgba(255,215,0,0.95)" letter-spacing="1">A</text>
+
+          <!-- Elegant ampersand -->
+          <text x="45" y="54.5" text-anchor="middle"
+                font-family="Playfair Display,serif" font-size="9" font-style="italic"
+                fill="rgba(245,230,211,0.8)">&amp;</text>
+
+          <!-- Royal monogram M -->
+          <text x="45" y="65" text-anchor="middle"
+                font-family="Playfair Display,serif" font-size="15" font-weight="700"
+                fill="rgba(255,215,0,0.95)" letter-spacing="1">M</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LUXURY CURTAIN -->
+<div id="curtain"></div>
+
+<script>
+/* Royal particles */
+const pw = document.getElementById('particles');
+for(let i=0;i<70;i++){
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const sz = (Math.random()*3+1.2).toFixed(1);
+  p.style.cssText = `width:${sz}px;height:${sz}px;left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;--dur:${(Math.random()*5+3).toFixed(1)}s;--op:${(Math.random()*.6+.2).toFixed(2)};animation-delay:${(Math.random()*7).toFixed(1)}s`;
+  pw.appendChild(p);
+}
+
+const audio    = document.getElementById('bgMusic');
+const enterBtn = document.getElementById('enterBtn');
+const welcome  = document.getElementById('welcome');
+const overlay  = document.getElementById('env-overlay');
+const envScene = document.getElementById('envScene');
+const glowRing = document.getElementById('glow-ring');
+const curtain  = document.getElementById('curtain');
+
+function spawnRoyalPetals(){
+  const n = 35;
+  for(let i=0;i<n;i++){
+    const el = document.createElement('div');
+    el.className = 'petal';
+    const angle = (i/n)*Math.PI*2 + (Math.random()-.5)*.6;
+    const dist  = 120 + Math.random()*220;
+    const tx    = (Math.cos(angle)*dist).toFixed(1)+'px';
+    const ty    = (Math.sin(angle)*dist - 50).toFixed(1)+'px';
+    const rot   = (Math.random()*900-450).toFixed(0)+'deg';
+    const pd    = (.7+Math.random()*.9).toFixed(2)+'s';
+    const dl    = (.1+Math.random()*.6).toFixed(2)+'s';
+    const colors = [
+      'rgba(212,175,55,.9)',
+      'rgba(255,215,0,.85)',
+      'rgba(139,63,184,.75)',
+      'rgba(245,230,211,.8)'
+    ];
+    const col = colors[Math.floor(Math.random()*colors.length)];
+    el.style.cssText = `--tx:${tx};--ty:${ty};--rot:${rot};--pd:${pd};--dl:${dl};background:${col};box-shadow:0 0 8px ${col};`;
+    overlay.appendChild(el);
+    el.addEventListener('animationend', ()=>el.remove(), {once:true});
+  }
+}
+
+enterBtn.addEventListener('click', ()=>{
+  // Play music
+  audio.play().catch(()=>{});
+
+  // Fade welcome
+  welcome.classList.add('fading');
+
+  // Show envelope overlay
+  overlay.classList.add('show');
+
+  // Royal glow bloom
+  setTimeout(()=> glowRing.classList.add('bloom'), 400);
+
+  // Open envelope with royal petals
+  setTimeout(()=>{
+    envScene.classList.add('open');
+    spawnRoyalPetals();
+  }, 850);
+
+  // Luxury curtain drop and navigation
+  setTimeout(()=> curtain.classList.add('drop'), 3200);
+  setTimeout(()=>{ window.location.href = 'invitation.html'; }, 4600);
+});
+</script>
+</body>
+</html>
