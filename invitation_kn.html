@@ -121,21 +121,23 @@ body{
 }
 
 /* SCENES */
-.scene{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:75px 50px 55px;
-  z-index:5;
-  visibility:hidden;
-  opacity:0;
-  transition:opacity .7s ease, visibility .7s ease;
-  overflow-y:auto;
-  overflow-x:hidden;
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Change padding from 75px 50px 55px to: */
+  padding: 40px 20px; 
+  z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .7s ease, visibility .7s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 .scene.active{visibility:visible;opacity:1;}
 .scene::-webkit-scrollbar{width:0;}
 
@@ -198,12 +200,13 @@ body{
   text-shadow:0 0 20px rgba(255,215,0,.5);
 }
 
-.script-big{
-  font-family:"Playfair Display",serif;
-  font-size:clamp(42px,10vw,90px);
-  font-weight:700;
-  line-height:1.1;
-  text-align:center;
+.script-big {
+  font-family: "Playfair Display", serif;
+  /* Reduce the max size slightly and increase line-height */
+  font-size: clamp(32px, 8vw, 65px); 
+  font-weight: 700;
+  line-height: 1.5; /* Changed from 1.1 to 1.5 */
+  text-align: center;
   background:linear-gradient(135deg,
     var(--rich-gold) 0%,
     var(--bright-gold) 25%,
@@ -281,6 +284,7 @@ body{
 .body{
   font-family:"Cormorant Garamond",serif;
   font-size:clamp(17px,2.8vw,25px);
+  overflow-y: auto;
   color:var(--cream);
   text-align:center;
   font-style:italic;
